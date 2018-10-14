@@ -4,3 +4,6 @@
 .gcc-flags.json
 .travis.yml
 lib/readme.txt
+*/*/.DS_Store
+*/.DS_Store
+.DS_Store
