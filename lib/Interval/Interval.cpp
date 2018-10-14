@@ -3,9 +3,15 @@
 
 unsigned long prev = 0;
 unsigned long interval = 0;
+bool automaticReset;
 
-Interval::Interval(unsigned long milliseconds){
+/*
+* milliseconds: Länge des Intervals
+* autoReset: Steuert, ob Interval automatisch neu startet, wenn over() true zurueck gibt
+*/
+Interval::Interval(unsigned long milliseconds, bool autoReset){
     interval = milliseconds;
+    automaticReset = autoReset;
 }
 
 void Interval::setLength(unsigned long milliseconds){
@@ -21,5 +27,11 @@ void Interval::start(){
 }
 
 bool Interval::over(){
-    return millis() - prev > interval;
+    if(millis() - prev > interval){
+        if(automaticReset){
+            reset();
+        }
+        return true;
+    }
+    return false;
 }

@@ -2,7 +2,7 @@
 
 class Interval {
     public:
-        Interval(unsigned long milliseconds);
+        Interval(unsigned long milliseconds, bool autoReset);
         void setLength(unsigned long milliseconds);
         void reset();
         void start();
