@@ -4,26 +4,34 @@
 Configuration::Configuration() {
     EEPROM.begin(eepromSize);
     EEPROM.get(eepromAdress, data);
+    EEPROM.end();
+}
+
+void Configuration::reload() {
+    EEPROM.begin(eepromSize);
+    EEPROM.get(eepromAdress, data);
+    EEPROM.end();
 }
 
 void Configuration::save() {
+    EEPROM.begin(eepromSize);
     EEPROM.put(eepromAdress, data);
     EEPROM.commit();
     EEPROM.end();
 }
 
-char *Configuration::getSsid(){
+char* Configuration::getSsid(){
     return data.ssid;
 }
 
-void Configuration::setSsid(char *ssid){
-    data.ssid = ssid;
+void Configuration::setSsid(char* ssid){
+    strcpy(data.ssid, ssid);
 }
 
-char *Configuration::getPassword(){
+char* Configuration::getPassword(){
     return data.password;
 }
 
-void Configuration::setPassword(char *password){
-    data.password = password;
+void Configuration::setPassword(char* password){
+    strcpy(data.password, password);
 }
