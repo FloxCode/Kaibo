@@ -1,10 +1,6 @@
 #include <Arduino.h>
 #include <Interval.h>
 
-unsigned long prev = 0;
-unsigned long interval = 0;
-bool automaticReset;
-
 /*
 * milliseconds: Länge des Intervals
 * autoReset: Steuert, ob Interval automatisch neu startet, wenn over() true zurueck gibt
