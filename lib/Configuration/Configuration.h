@@ -14,8 +14,8 @@ class Configuration {
         void setSsid(char* ssid);
         char* getPassword();
         void setPassword(char* password);
-        configData data;
     private:
         const uint16_t eepromSize = 512;
         const uint8_t eepromAdress = 0;
+        configData data;
 };

@@ -2,13 +2,10 @@
 #include <TM1637Display.h>
 #include <U8g2lib.h>
 
-TM1637Display sevenSegment(D3, D4);
-U8G2_SH1106_128X64_NONAME_F_HW_I2C oled(U8G2_R0, U8X8_PIN_NONE, D2, D2);
-
 // 7 Segment Konstanten
-uint8_t clear[] = {0x00, 0x00, 0x00, 0x00};
+const uint8_t clear[] = {0x00, 0x00, 0x00, 0x00};
 // Oled Konstanten
-char dayNames[7][11] = {"Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"};
+const char dayNames[7][11] = {"Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"};
 
 CombinedDisplay::CombinedDisplay(uint8_t oledClock, uint8_t oledData,
                                  uint8_t sevenSegClock, uint8_t sevenSegDIO) :
