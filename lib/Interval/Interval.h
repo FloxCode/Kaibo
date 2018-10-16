@@ -7,4 +7,8 @@ class Interval {
         void reset();
         void start();
         bool over();
+    private:
+        unsigned long prev;
+        unsigned long interval;
+        bool automaticReset;
 };
