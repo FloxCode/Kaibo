@@ -7,6 +7,12 @@ const uint8_t clear[] = {0x00, 0x00, 0x00, 0x00};
 // Oled Konstanten
 const char dayNames[7][11] = {"Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"};
 
+// Positionen
+const uint8_t row1 = 20;
+const uint8_t row2 = 40;
+const uint8_t row3 = 60;
+const uint8_t defX = 10;
+
 CombinedDisplay::CombinedDisplay(uint8_t oledClock, uint8_t oledData,
                                  uint8_t sevenSegClock, uint8_t sevenSegDIO) :
                                  sevenSegment(sevenSegClock, sevenSegDIO),
@@ -50,20 +56,56 @@ void CombinedDisplay::showDate(uint8_t hour, uint8_t min, uint8_t sec,
     // Wochentag und Datum
     if(showDayOfWeek && showDate){
         oled.clearBuffer();
-        oled.drawStr(30, 40, dayNames[dayOfWeek]);
-        printDate(30, 60, year, month, day);
+        oled.drawStr(defX, row2, dayNames[dayOfWeek]);
+        printDate(defX, row3, year, month, day);
         oled.sendBuffer();
     }
     else if(showDate){
         oled.clearBuffer();
-        //printDate(30, 60, year, month, day);
+        printDate(defX, row3, year, month, day);
         oled.sendBuffer();
     }
     else if(showDayOfWeek){
         oled.clearBuffer();
-        oled.drawStr(30, 60, dayNames[dayOfWeek]);
+        oled.drawStr(defX, row3, dayNames[dayOfWeek]);
         oled.sendBuffer();
     }
+}
+
+void CombinedDisplay::showMessage(char *lines[80]){
+    sevenSegment.setSegments(clear);
+    oled.clearBuffer();
+    uint8_t rowCount = sizeof(lines) / sizeof(lines[0]);
+    Serial.begin(9600);
+    Serial.println();
+    Serial.println("sizeof(lines)");
+    Serial.println(sizeof(lines));
+    for(uint8_t i=0; i<sizeof(lines); i++){
+        Serial.println(lines[i]);
+    }
+    Serial.println("Zeilen:");
+    Serial.println(rowCount);
+    if(rowCount >= 3){
+        oled.drawStr(defX, row1, lines[0]);
+        oled.drawStr(defX, row2, lines[1]);
+        oled.drawStr(defX, row3, lines[2]);
+    }
+    else if(rowCount == 2){
+        oled.drawStr(defX, row2, lines[0]);
+        oled.drawStr(defX, row3, lines[1]);
+    }
+    else{
+        oled.drawStr(defX, row3, lines[0]);
+    }
+    oled.sendBuffer();
+
+
+}
+
+void CombinedDisplay::clearDisplay(){
+    sevenSegment.setSegments(clear);
+    oled.clearBuffer();
+    oled.sendBuffer();
 }
 
 void CombinedDisplay::printDate(uint8_t xpos, uint8_t ypos, uint16_t year, uint8_t month, uint8_t day){

@@ -16,6 +16,8 @@ class CombinedDisplay {
         void showDate(uint8_t hour, uint8_t min, uint8_t sec, uint16_t year, uint8_t month, uint8_t day, uint8_t dayOfWeek,
                       bool showSeconds, bool showDate, bool showDayOfWeek);
         void setBrightness(Brightness b);
+        void showMessage(char *lines[80]);
+        void clearDisplay();
     private:
         TM1637Display sevenSegment;
         U8G2_SH1106_128X64_NONAME_F_HW_I2C oled;
