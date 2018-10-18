@@ -9,4 +9,4 @@ Basiert auf einem NodeMCU (ESP8266) und soll per WLAN die aktuelle Uhrzeit, das 
 * 0.56" 7-Segment-Anzeige, Treiber: TM1637
 
 ### Verwendete IDE:
-PlatformIO IDE for Atom
+[PlatformIO IDE for Atom](https://platformio.org)
