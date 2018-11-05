@@ -23,6 +23,7 @@ char ap_password[] = "KaiboSetup";
 char ap_ip[4] = {8, 2, 6, 6};
 
 char message[80];
+char connectingText[] = "Verbinde mit:";
 
 void setup() {
     //Serial.begin(9600);
@@ -32,9 +33,9 @@ void setup() {
     // TODO: Bootsequenz
     // Verbindung zu gespeichertem Netzwerk aufnehmen
     strcpy(message, wifi.cm_getSsid().c_str());
-    char lines[2][80] = {"Verbinde mit:", message};
+    char *lines[80] = {connectingText, message};
     messageInterval.start();
-    display.showMessage(lines);
+    display.showMessage(lines, 2);
     while(!messageInterval.over()){
         yield();
     }
@@ -50,12 +51,12 @@ void setup() {
     if(!wifi.cm_isConnected()){
         wifi.cm_stop();
         wifi.apm_start(ap_ssid, ap_password, ap_ip);
-        char lines2[2][80] = {ap_ssid, ap_password};
-        display.showMessage(lines2);
+        char *lines2[80] = {ap_ssid, ap_password};
+        display.showMessage(lines2, 2);
     }
     else{
-        char lines3[1][80] = {"Verbunden!"};
-        display.showMessage(lines3);
+        char *lines3[80] = {"Verbunden!"};
+        display.showMessage(lines3, 1);
         messageInterval.start();
         while(!messageInterval.over()){
             yield();

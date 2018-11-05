@@ -72,25 +72,15 @@ void CombinedDisplay::showDate(uint8_t hour, uint8_t min, uint8_t sec,
     }
 }
 
-void CombinedDisplay::showMessage(char *lines[80]){
+void CombinedDisplay::showMessage(char *lines[80], int lineCount){
     sevenSegment.setSegments(clear);
     oled.clearBuffer();
-    uint8_t rowCount = sizeof(lines) / sizeof(lines[0]);
-    Serial.begin(9600);
-    Serial.println();
-    Serial.println("sizeof(lines)");
-    Serial.println(sizeof(lines));
-    for(uint8_t i=0; i<sizeof(lines); i++){
-        Serial.println(lines[i]);
-    }
-    Serial.println("Zeilen:");
-    Serial.println(rowCount);
-    if(rowCount >= 3){
+    if(lineCount >= 3){
         oled.drawStr(defX, row1, lines[0]);
         oled.drawStr(defX, row2, lines[1]);
         oled.drawStr(defX, row3, lines[2]);
     }
-    else if(rowCount == 2){
+    else if(lineCount == 2){
         oled.drawStr(defX, row2, lines[0]);
         oled.drawStr(defX, row3, lines[1]);
     }
