@@ -8,8 +8,9 @@ const uint8_t clear[] = {0x00, 0x00, 0x00, 0x00};
 const char dayNames[7][11] = {"Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"};
 
 // Positionen
-const uint8_t row1 = 20;
-const uint8_t row2 = 40;
+const uint8_t row0 = 15;
+const uint8_t row1 = 30;
+const uint8_t row2 = 45;
 const uint8_t row3 = 60;
 const uint8_t defX = 10;
 
@@ -75,7 +76,13 @@ void CombinedDisplay::showDate(uint8_t hour, uint8_t min, uint8_t sec,
 void CombinedDisplay::showMessage(char *lines[80], int lineCount){
     sevenSegment.setSegments(clear);
     oled.clearBuffer();
-    if(lineCount >= 3){
+    if(lineCount >= 4){
+        oled.drawStr(defX, row0, lines[0]);
+        oled.drawStr(defX, row1, lines[1]);
+        oled.drawStr(defX, row2, lines[2]);
+        oled.drawStr(defX, row3, lines[3]);
+    }
+    else if(lineCount == 3){
         oled.drawStr(defX, row1, lines[0]);
         oled.drawStr(defX, row2, lines[1]);
         oled.drawStr(defX, row3, lines[2]);
